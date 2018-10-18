@@ -11,10 +11,10 @@ import java.util.List;
  */
 public class FilteringApples {
 
-    public static List<Apple> filterGreenApples(List<Apple> inventory){
+    public static List<Apple> filterGreenApples(List<Apple> inventory, String color){
         List<Apple> result = new ArrayList<>();
         for (Apple apple : inventory) {
-            if ("green".equals(apple.getColor())) {
+            if (color.equals(apple.getColor())) {
                 result.add(apple);
             }
         }
