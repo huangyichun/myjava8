@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class FilteringApples {
 
-    public static List<Apple> filterGreenApples(List<Apple> inventory, String color){
+    public static List<Apple> filterApplesByColor(List<Apple> inventory, String color){
         List<Apple> result = new ArrayList<>();
         for (Apple apple : inventory) {
             if (color.equals(apple.getColor())) {
