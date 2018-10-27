@@ -24,9 +24,16 @@ public class FilteringApples {
         List<Apple> result = filterApples(inventory, new AppleRedAndHeavyPredicate());
         System.out.println(result);
 
-        /**
-         * Lambda表达式传递
-         */
+        prettyPrintApple(inventory, new AppleFancyFormatter());
+        prettyPrintApple(inventory, new AppleSimpleFormatter());
+
+    }
+
+    public static void prettyPrintApple(List<Apple> inventory, AppleFormatter formatter) {
+        for (Apple apple : inventory) {
+            String output = formatter.accept(apple);
+            System.out.println(output);
+        }
     }
 
     public static List<Apple> filterApples(List<Apple> inventory, ApplePredicate predicate) {
