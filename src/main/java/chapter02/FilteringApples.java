@@ -18,8 +18,15 @@ public class FilteringApples {
                 new Apple(88, "green"),
                 new Apple(190, "green"));
 
+        /**
+         * 策略模式，实现多种行为一个参数（行为参数化）
+         */
         List<Apple> result = filterApples(inventory, new AppleRedAndHeavyPredicate());
         System.out.println(result);
+
+        /**
+         * Lambda表达式传递
+         */
     }
 
     public static List<Apple> filterApples(List<Apple> inventory, ApplePredicate predicate) {
