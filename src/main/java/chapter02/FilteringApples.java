@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static chapter02.Filter.filter;
+
 /**
  * @author huangyichun
  * @date 2018/10/18
@@ -44,8 +46,17 @@ public class FilteringApples {
         List<Apple> lambdaResult = filterApples(inventory, (Apple apple) -> "red".equals(apple.getColor()));
         System.out.println(lambdaResult);
 
+        /**
+         * List类型抽象化
+         */
+        List<Apple> redApples = Filter.filter(inventory, (Apple apple) -> "red".equals(apple.getColor()));
+        System.out.println(redApples);
 
+        List<Integer> numbers = Arrays.asList(2, 4, 5, 12, 34, 45, 11);
+        List<Integer> evenNumbers = filter(numbers, (Integer i) -> i % 2 == 0);
+        System.out.println(evenNumbers);
     }
+
 
     public static void prettyPrintApple(List<Apple> inventory, AppleFormatter formatter) {
         for (Apple apple : inventory) {
