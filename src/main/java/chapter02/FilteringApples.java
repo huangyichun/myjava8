@@ -37,6 +37,14 @@ public class FilteringApples {
             }
         });
         System.out.println(redApple);
+
+        /**
+         * Lambda表达式
+         */
+        List<Apple> lambdaResult = filterApples(inventory, (Apple apple) -> "red".equals(apple.getColor()));
+        System.out.println(lambdaResult);
+
+
     }
 
     public static void prettyPrintApple(List<Apple> inventory, AppleFormatter formatter) {
