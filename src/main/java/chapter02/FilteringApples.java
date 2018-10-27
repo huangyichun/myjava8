@@ -27,6 +27,16 @@ public class FilteringApples {
         prettyPrintApple(inventory, new AppleFancyFormatter());
         prettyPrintApple(inventory, new AppleSimpleFormatter());
 
+        /**
+         * 使用匿名类
+         */
+        List<Apple> redApple = filterApples(inventory, new ApplePredicate() {
+            @Override
+            public boolean test(Apple apple) {
+                return "red".equals(apple.getColor());
+            }
+        });
+        System.out.println(redApple);
     }
 
     public static void prettyPrintApple(List<Apple> inventory, AppleFormatter formatter) {
