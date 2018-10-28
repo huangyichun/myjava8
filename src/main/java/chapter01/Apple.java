@@ -6,7 +6,7 @@ package chapter01;
  */
 public class Apple {
 
-    private int weight = 0;
+    private Integer weight = 0;
     private String color = "";
 
     public Apple(int weight, String color) {
@@ -14,11 +14,11 @@ public class Apple {
         this.color = color;
     }
 
-    public int getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 
