@@ -44,3 +44,13 @@ Comparator<Apple> byWeight = (Apple a1, Apple a2) -> a1.getWeight().compareTo(a2
 
 (parameters) -> expression 或 (parameters) -> {statements}
 
+## 函数式接口
+函数式接口就是只定义一个抽象方法的接口
+
+###函数描述符
+函数式接口的抽象方法的签名基本上就是Lambda表达式的签名，我们将这种抽象方法叫做函数描述符。
+例如：Runnable接口可以看作一个什么也不接受什么也不返回的函数签名 
+具体签名如下：
+1. () -> void 
+2.(Apple, Apple) -> int 
+
