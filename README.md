@@ -56,8 +56,21 @@ Comparator<Apple> byWeight = (Apple a1, Apple a2) -> a1.getWeight().compareTo(a2
 1. () -> void 
 2.(Apple, Apple) -> int 
 
-Java8定义了三个函数式接口
+Java8定义了多个函数式接口
 1. Predicate (T t) -> boolean
 2. Consumer  (T t) -> void
-3
+3  ...
+
+## 构建方法引用
+三类：
+1. 指向静态方法的方法引用
+String s -> Integer.parseInt(s) ->  Integer::parseInt
+
+2. 指向任意类型示例方法的方法引用
+String s -> s.length() -> String::length
+
+3.指向现有对象的实例方法的方法引用
+(args) -> expr.instanceMethod(args) -> expr::instanceMethod
+
+
 
