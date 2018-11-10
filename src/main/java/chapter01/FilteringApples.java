@@ -2,8 +2,10 @@ package chapter01;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
+
 
 /**
  * @author huangyichun
@@ -31,6 +33,12 @@ public class FilteringApples {
 
         List<Apple> weirdApples = filterApples(inventory, apple -> "brown".equals(apple.getColor()) && apple.getWeight() > 150);
         System.out.println(weirdApples);
+
+        inventory.sort((Apple a1, Apple a2) -> a1.getWeight().compareTo(a2.getWeight()));
+        System.out.println(inventory);
+
+        inventory.sort(Comparator.comparing(Apple::getWeight));
+        System.out.println(inventory);
     }
 
 
