@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.function.*;
 
 /**
@@ -14,6 +13,8 @@ import java.util.function.*;
  * @date 2018/10/28
  */
 public class LambdaTest<T> {
+
+    private static int testNumber = 100;
 
     public static void main(String[] args) {
         /**
@@ -48,6 +49,27 @@ public class LambdaTest<T> {
         Integer i = supplier(() -> 1000);
         System.out.println(i);
 
+        Predicate<Integer> p = s -> list.add(s);
+        Consumer<Integer> c = s -> list.add(s);
+
+        /**
+         * 使用局部变量必须为final类型，或者事实上是final
+         */
+        int portNumber = 1337;
+        Runnable r1 = () -> System.out.println(portNumber);
+        Runnable r2 = () -> System.out.println(testNumber);
+        testNumber = 12323;
+
+        List<String> str = Arrays.asList("a", "b", "A", "B");
+        str.sort((s1, s2) -> s1.compareToIgnoreCase(s2));
+        str.sort(String::compareToIgnoreCase);
+        System.out.println(str);
+    }
+
+    private int test = 100;
+    public void testPortNumber(){
+        Runnable r2 = () -> System.out.println(test);
+        test = 12323;
     }
 
     /**
@@ -59,7 +81,7 @@ public class LambdaTest<T> {
      * @param <T>
      * @return
      */
-    public static <T> List<T> filter(List<T> list, Predicate<T> predicate) {
+    public static  <T> List<T> filter(List<T> list, Predicate<T> predicate) {
         List<T> result = new ArrayList<>();
         for (T t : list) {
             if (predicate.test(t)) {
