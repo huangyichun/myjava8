@@ -6,6 +6,13 @@ package chapter01;
  */
 public class Apple {
 
+    public Apple() {
+    }
+
+    public Apple(Integer weight) {
+        this.weight = weight;
+    }
+
     private Integer weight = 0;
     private String color = "";
 
