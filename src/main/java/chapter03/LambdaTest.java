@@ -2,11 +2,9 @@ package chapter03;
 
 import chapter01.Apple;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.function.*;
+
 
 /**
  * @author huangyichun
@@ -64,10 +62,98 @@ public class LambdaTest<T> {
         str.sort((s1, s2) -> s1.compareToIgnoreCase(s2));
         str.sort(String::compareToIgnoreCase);
         System.out.println(str);
+
+        Supplier<Apple> c1 = () -> new Apple();
+        Apple a1 = c1.get();
+
+        Supplier<Apple> c2 = Apple::new;
+        Apple a2 = c2.get();
+
+        BiFunction<Integer, String, Apple> c3 = Apple::new;
+        Apple a3 = c3.apply(123, "red");
+
+        System.out.println("--------------------------------------");
+
+        List<Integer> list1 = Arrays.asList(1, 3, 4, 5, 12);
+        List<Apple> apples = getApples(list1, Apple::new);
+        System.out.println(apples);
+
+        System.out.println("---------------------------------------");
+        Map<Integer, String> map = new HashMap<>();
+        map.put(20, "red");
+        map.put(100, "red");
+        map.put(22, "black");
+        map.put(21, "green");
+        map.put(34, "yellow");
+        map.put(35, "blue");
+        List<Apple> appleList = getAppleList(map, Apple::new);
+        appleList.add(new Apple(20, "black"));
+        System.out.println(appleList);
+        //第一种比较方法
+//        appleList.sort(new Comparator<Apple>() {
+//            @Override
+//            public int compare(Apple o1, Apple o2) {
+//                return o1.getWeight().compareTo(o2.getWeight());
+//            }
+//        });
+//        System.out.println(appleList);
+
+        //第二种比较方法
+        appleList.sort((Apple apple1, Apple apple2) -> apple1.getWeight().compareTo(apple2.getWeight()));
+        appleList.sort((apple1, apple2) -> apple1.getWeight().compareTo(apple2.getWeight()));
+        appleList.sort(Comparator.comparing((Apple a) -> a.getWeight()));
+        appleList.sort(Comparator.comparing(a -> a.getWeight()));
+        appleList.sort(Comparator.comparing(Apple::getWeight));
+
+
+        appleList.sort(Comparator.comparing(Apple::getWeight)
+                .thenComparing(Apple::getColor));
+        System.out.println();
+        System.out.println("--------------按重量正序，颜色正序排序--------------");
+        System.out.println(appleList);
+
+        appleList.sort(Comparator.comparing(Apple::getWeight).reversed()
+                .thenComparing(Comparator.comparing(Apple::getColor).reversed()));
+        System.out.println();
+        System.out.println("--------------按重量逆序，颜色逆序排序--------------");
+        System.out.println(appleList);
+
+        Function<Integer, Integer> f = x -> x + 1;
+        Function<Integer, Integer> g = x -> x * 2;
+        Function<Integer, Integer> h = f.andThen(g);
+
+        int result1 = h.apply(1);
+        System.out.println(result1);
+
+        Function<Integer, Integer> compose = f.compose(g);
+        System.out.println(compose.apply(3));
+
+        System.out.println();
+
+        Function<String, String> addHeader = Letter::addHeader;
+        Function<String, String> transformationPipeline =
+                addHeader.andThen(Letter::checkSpelling).andThen(Letter::addFooter);
+
+        System.out.println(transformationPipeline.apply("hello"));
+    }
+
+    public static List<Apple> getAppleList(Map<Integer, String> map, BiFunction<Integer, String, Apple> biFunction) {
+        List<Apple> apples = new ArrayList<>();
+        map.forEach((Integer i, String s) -> apples.add(biFunction.apply(i, s)));
+        return apples;
+    }
+
+    public static List<Apple> getApples(List<Integer> list, Function<Integer, Apple> function) {
+        List<Apple> apples = new ArrayList<>();
+        for (Integer i : list) {
+            apples.add(function.apply(i));
+        }
+        return apples;
     }
 
     private int test = 100;
-    public void testPortNumber(){
+
+    public void testPortNumber() {
         Runnable r2 = () -> System.out.println(test);
         test = 12323;
     }
@@ -81,7 +167,7 @@ public class LambdaTest<T> {
      * @param <T>
      * @return
      */
-    public static  <T> List<T> filter(List<T> list, Predicate<T> predicate) {
+    public static <T> List<T> filter(List<T> list, Predicate<T> predicate) {
         List<T> result = new ArrayList<>();
         for (T t : list) {
             if (predicate.test(t)) {
@@ -93,6 +179,7 @@ public class LambdaTest<T> {
 
     /**
      * Consumer接口使用
+     *
      * @param list
      * @param consumer
      * @param <T>
@@ -105,6 +192,7 @@ public class LambdaTest<T> {
 
     /**
      * Function接口使用
+     *
      * @param list
      * @param function
      * @param <T>
@@ -121,6 +209,7 @@ public class LambdaTest<T> {
 
     /**
      * Supplier接口 () -> T
+     *
      * @param supplier
      * @param <T>
      * @return
