@@ -1,10 +1,10 @@
 package chapter04;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 /**
  * @author huangyichun
@@ -39,5 +39,12 @@ public class StreamVsCollection {
                 .map(Dish::getName)
                 .collect(Collectors.toList());
         System.out.println(streamLowCaloricDishesName);
+
+        List<String> threeHighCaloricDishNames = Dish.menu.stream()
+                .filter(d -> d.getCalories() > 300)
+                .map(Dish::getName)
+                .limit(3)
+                .collect(Collectors.toList());
+        System.out.println(threeHighCaloricDishNames);
     }
 }

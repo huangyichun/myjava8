@@ -72,5 +72,31 @@ String s -> s.length() -> String::length
 3.指向现有对象的实例方法的方法引用
 (args) -> expr.instanceMethod(args) -> expr::instanceMethod
 
+## 流
+
+定义：从支持数据处理操作的源生成的元素系列
+
+元素系列：就像集合一样，流也提供一个接口，可以访问特定元素类型的一组有序值
+源： 流会使用一个提供数据的源（从有序集合生成流时会保留原有的顺序）
+数据处理操作：流的数据处理功能支持类型于数据库的操作，以及函数式变成语言中的常用操作(filter, map, reduce, find, match, sort等)
+流水线： 很多操作本身会返回一个流，这样多个操作就可以链接起来，形成一个流水线
+内部迭代：与使用迭代器显示迭代的集合不同，流的迭代操作是背后进行的。
+```java
+    List<String> threeHighCaloricDishNames = Dish.menu.stream()
+                    .filter(d -> d.getCalories() > 300)
+                    .map(Dish::getName)
+                    .limit(3)
+                    .collect(Collectors.toList());
+
+```
+- filter: 接受Lambda，从流中排除某些元素
+- map: 接受一个Lambda，将元素转换成其他形式或提取信息
+- limit: 截断流，使其元素不超过给定数量
+- collect：将流转换成其他形式
+
+
+  
+   
+
 
 
