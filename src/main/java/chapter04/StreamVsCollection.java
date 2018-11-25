@@ -1,9 +1,6 @@
 package chapter04;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -79,5 +76,61 @@ public class StreamVsCollection {
         for (String str : strings) {
             System.out.println(str);
         }
+
+        List<Integer> number1 = Arrays.asList(1, 2, 3);
+        List<Integer> number2 = Arrays.asList(3, 4);
+
+        number1.stream()
+                .flatMap(i ->
+                        number2.stream().filter(j -> (i + j) % 3 == 0)
+                        .map(j -> new int[]{i, j})
+
+                ).forEach(
+                x -> {
+                    for (int i : x) {
+                        System.out.print(i);
+                    }
+                    System.out.println();
+                }
+        );
+
+        /**
+         * Optional使用
+         */
+        Dish.menu.stream()
+                .filter(Dish::isVegetarian)
+                .findAny()
+                .ifPresent(d -> System.out.println(d.getName()));
+
+        /**
+         * 规约，求累加
+         */
+        List<Integer> numbers = Arrays.asList(4, 5, 9, 1);
+       /* int sum = numbers.stream().reduce(0, (a, b) -> a + b);
+        int sum = numbers.stream().reduce(0, (a, b) -> Integer.sum(a, b));*/
+        int sum = numbers.stream().reduce(0, Integer::sum);
+        System.out.println("sum=" + sum);
+
+        /**
+         * 求最大值
+         */
+        int max = numbers.stream().reduce(0, Integer::max);
+        System.out.println("max=" + max);
+
+        Optional<Integer> max2 = numbers.stream().reduce(Integer::max);
+        max2.ifPresent(System.out::println);
+
+        /**
+         * 计算menu中有几道菜
+         */
+        int count = Dish.menu.stream()
+                .map(d -> 1)
+                .reduce(0, (a, b) -> a + b);
+
+        long count2 = Dish.menu.stream().count();
+
+        System.out.println("count=" + count);
+        System.out.println("count2=" + count2);
+
     }
 }
