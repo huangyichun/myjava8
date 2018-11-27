@@ -1,5 +1,4 @@
 # myjava8
-java8相关学习
 
 ## Lambda表达式：
 可以理解为简洁地表示可传递的匿名函数的一种方式，它没有名称，但有参数列表，函数主体、返回类型，可能还有一个可抛出的异常列表
@@ -47,21 +46,34 @@ Comparator<Apple> byWeight = (Apple a1, Apple a2) -> a1.getWeight().compareTo(a2
 ## 函数式接口
 函数式接口就是只定义一个抽象方法的接口
 
-###函数描述符
+
+
+### 函数描述符
 函数式接口的抽象方法的签名称为函数描述符。
 
 函数式接口的抽象方法的签名基本上就是Lambda表达式的签名，我们将这种抽象方法叫做函数描述符。
 例如：Runnable接口可以看作一个什么也不接受什么也不返回的函数签名 
 具体签名如下：
 1. () -> void 
-2.(Apple, Apple) -> int 
+2. (Apple, Apple) -> int 
 
 Java8定义了多个函数式接口
 1. Predicate (T t) -> boolean
 2. Consumer  (T t) -> void
 3  ...
 
-## 构建方法引用
+## 方法引用
+   方法引用可以让你重复使用现有的方法定义，并像lambda一样传递，可以看作是一种lambda表达式的简写。
+ 
+ 例如：
+    
+   ```java
+    inventory.sort((Apple a1, Apple a2) -> a1.getWeight().compareTo(a2.getWeight()));
+
+    inventory.sort(comparing(Apple::getWeight)); //方法引用
+```
+      
+    
 三类：
 1. 指向静态方法的方法引用
 String s -> Integer.parseInt(s) ->  Integer::parseInt
@@ -69,7 +81,7 @@ String s -> Integer.parseInt(s) ->  Integer::parseInt
 2. 指向任意类型示例方法的方法引用
 String s -> s.length() -> String::length
 
-3.指向现有对象的实例方法的方法引用
+3. 指向现有对象的实例方法的方法引用
 (args) -> expr.instanceMethod(args) -> expr::instanceMethod
 
 ## 流
@@ -93,6 +105,39 @@ String s -> s.length() -> String::length
 - map: 接受一个Lambda，将元素转换成其他形式或提取信息
 - limit: 截断流，使其元素不超过给定数量
 - collect：将流转换成其他形式
+
+### 使用流
+ 流的使用一般包括三件事：
+ 
+ - 一个数据源来执行一个查询
+ - 一个中间操作链，形成一条流的流水线
+ - 一个终端操作，执行流水线，并能生成结果
+ 
+ #### 中间操作
+  重点介绍几个
+  
+ 1. flatMap 流的扁平化
+  
+    flatMap方法能让你把一个流的每个值都换成另一个流，然后把所有的流连接起来成为一个流。
+  例如：字符串数组String[] arrayOfWords = {"GoodBye", "World"}
+  返回一个列表：["G", "o", "o", "d", "B", "y", "e", "W", "o", "r", "l", "d"]
+  
+  ```java
+  List<String> list = Arrays.stream(arrayOfWords)
+                  .map(word -> word.split(""))
+                  .flatMap(t -> Arrays.stream(t))
+                  .collect(Collectors.toList());
+
+  //进一步简写成
+  List<String> list = Arrays.stream(arrayOfWords)
+                  .map(word -> word.split(""))
+                  .flatMap(Arrays::stream)
+                  .collect(Collectors.toList());
+  
+  //输出结果为：
+  [G, o, o, d, B, y, e, W, o, r, l, d]
+```
+  
 
 
   
