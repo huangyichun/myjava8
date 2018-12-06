@@ -146,6 +146,11 @@ public class GroupingTransactions {
         Map<Boolean,Map<Dish.Type, List<Dish>> > partitionedMenu2 = Dish.menu.stream().collect(
                 partitioningBy(Dish::isVegetarian, groupingBy(Dish::getType)));
         System.out.println(partitionedMenu2);
+
+        Map<Boolean, Dish> partitionedCaloric = Dish.menu.stream().collect(
+                partitioningBy(Dish::isVegetarian, collectingAndThen(
+                        maxBy(Comparator.comparingInt(Dish::getCalories)), Optional::get)));
+        System.out.println(partitionedCaloric);
     }
 
     private static void groupImperatively() {
