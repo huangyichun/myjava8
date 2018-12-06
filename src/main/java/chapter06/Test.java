@@ -36,6 +36,5 @@ public class Test {
         String shortMenu2 = menu.stream().map(Dish::getName).collect(joining(","));
         System.out.println(shortMenu2);
 
-
     }
 }
