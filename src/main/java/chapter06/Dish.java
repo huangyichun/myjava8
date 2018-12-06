@@ -71,4 +71,10 @@ public class Dish {
         dishTags.put("prawns", asList("tasty", "roasted"));
         dishTags.put("salmon", asList("delicious", "fresh"));
     }
+
+    public enum CaloricLevel{
+        DIET,
+        NORMAL,
+        FAT
+    }
 }
