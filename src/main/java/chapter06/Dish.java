@@ -8,7 +8,7 @@ import static java.util.Arrays.asList;
 
 /**
  * @author huangyichun
- * @date 2018/11/26
+ * @create 2018-12-03
  */
 public class Dish {
 
@@ -46,6 +46,7 @@ public class Dish {
     public String toString() {
         return name;
     }
+
 
     public static final List<Dish> menu =
             asList( new Dish("pork", false, 800, Dish.Type.MEAT),
