@@ -1,9 +1,7 @@
 package chapter06;
 
 
-import java.util.Comparator;
-import java.util.IntSummaryStatistics;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.joining;
@@ -37,5 +35,14 @@ public class Test {
         System.out.println(shortMenu2);
 
         System.out.println("test");
+
+        /**
+         * ToListCollector使用
+         */
+        List<Dish> dishes = menu.stream().collect(new ToListCollector<>());
+        System.out.println(dishes);
+
+        List<Dish> dishes1 = menu.stream().collect(ArrayList::new,
+                List::add, List::addAll);
     }
 }
