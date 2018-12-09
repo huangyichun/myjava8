@@ -1,6 +1,7 @@
 package chapter07;
 
 import java.util.function.Function;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 /**
@@ -16,7 +17,7 @@ public class ParallelStream {
          */
         System.out.println(Runtime.getRuntime().availableProcessors());
 
-        System.out.println("Iterative sum done in: " + measureSumPerf(ParallelStream::tranditionSum, 10000000) + "msecs");
+        System.out.println("Iterative sum done in: " + measureSumPerf(ParallelStream::iterativeSum, 10000000) + "msecs");
         System.out.println("Sequential sum done in: " + measureSumPerf(ParallelStream::sequentialSum, 10000000) + "msecs");
         System.out.println("Parallel sum done in: " + measureSumPerf(ParallelStream::parallelSum, 10000000) + "msecs");
 
@@ -24,14 +25,15 @@ public class ParallelStream {
     }
 
     public static long parallelSum(long n) {
-        return Stream.iterate(1L, i -> i + 1).limit(n).parallel().reduce(0L, Long::sum);
+        return LongStream.rangeClosed(1, n).parallel().reduce(0L, Long::sum);
     }
 
     public static long sequentialSum (long n) {
-        return Stream.iterate(1L, i -> i + 1).limit(n).reduce(0L, Long::sum);
+//        return Stream.iterate(1L, i -> i + 1).limit(n).reduce(0L, Long::sum);
+        return LongStream.rangeClosed(1, n).reduce(0, Long::sum);
     }
 
-    public static long tranditionSum(long n) {
+    public static long iterativeSum(long n) {
         long sum = 0;
         for (long i = 1; i <= n; i ++ ) {
             sum += i;
