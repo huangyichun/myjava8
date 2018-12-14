@@ -3,6 +3,8 @@ package chapter07;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
 import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
@@ -13,6 +15,18 @@ import java.util.stream.Stream;
 public class ParallelStream {
 
     public static void main(String[] args) {
+
+        String message = "参数{{.argument}}取值不合法;参数{{.argument}}取值应该介于{{.operand1}}和{{.operand2}}之间;参数{{.argument}}取值应该{{.param}}{{.operand1}}";
+
+        String regex = ("\\{\\.([A-Za-z0-9]+)}");
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(message);
+        System.out.println(matcher.groupCount());
+
+        while (matcher.find()) {
+            System.out.println(matcher.group(1));
+        }
+
         System.out.println(sequentialSum(10));
         /**
          * 获取处理器默认线程数
