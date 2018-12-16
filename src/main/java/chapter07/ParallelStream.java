@@ -1,5 +1,7 @@
 package chapter07;
 
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.ForkJoinTask;
 import java.util.function.Function;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
@@ -21,7 +23,13 @@ public class ParallelStream {
         System.out.println("Sequential sum done in: " + measureSumPerf(ParallelStream::sequentialSum, 10000000) + "msecs");
         System.out.println("Parallel sum done in: " + measureSumPerf(ParallelStream::parallelSum, 10000000) + "msecs");
 
+        System.out.println("ForkJoin sum done in:" + measureSumPerf(ParallelStream::forkJoinSum, 10000000) + "msecs");
+    }
 
+    public static long forkJoinSum(long n) {
+        long[] numbers = LongStream.rangeClosed(1, n).toArray();
+        ForkJoinTask<Long> task = new ForkJoinSumCalculator(numbers);
+        return new ForkJoinPool().invoke(task);
     }
 
     public static long parallelSum(long n) {
