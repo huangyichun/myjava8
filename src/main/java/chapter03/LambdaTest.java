@@ -15,6 +15,65 @@ public class LambdaTest<T> {
     private static int testNumber = 100;
 
     public static void main(String[] args) {
+
+        List<String> list2 = Arrays.asList("Hello", "Java", "8", "in", "action");
+        System.out.println(LambdaTest.filterList3(list2, s -> s.length() > 6));
+        System.out.println(LambdaTest.filterList3(list2, s -> s.length() == 5));
+
+        /**
+         * Java8以前的写法
+         */
+        Comparator <Integer> comparator = new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o1.compareTo(o2);
+            }
+        };
+
+        /**
+         * 最初始写法
+         */
+        Comparator<Integer> comparator1 = (Integer c1, Integer c2) -> c1.compareTo(c2);
+        /**
+         * 去除类型定义写法
+         */
+        Comparator<Integer> comparator2 = (c1, c2) -> c1.compareTo(c2);
+        /**
+         * 方法引用写法
+         */
+        Comparator<Integer> comparator3 = Integer::compareTo;
+
+        /**
+         * 布尔表达式
+         */
+        Predicate<List<String>> predicate = (List<String> list) -> list.isEmpty();
+
+        /**
+         * 创建对象
+         */
+        Supplier<Integer> supplier = () -> new Integer(10);
+
+        /**
+         * 消费一个对象
+         */
+        Consumer<String> consumer= (String s) -> System.out.println(s);
+
+        /**
+         * 从一个对象中选择/抽取
+         */
+        Function<String, Integer> function = (String s) -> s.length();
+
+        /**
+         * 组合两个值
+         */
+        BinaryOperator<Integer> binaryOperator = (Integer a, Integer b) -> a * b;
+
+        /**
+         * 比较两个对象
+         */
+        BiPredicate<Integer, Integer> biPredicate = (Integer a, Integer b) -> a.equals(b);
+
+
         /**
          * 第一个Lambda表达式
          */
@@ -24,6 +83,8 @@ public class LambdaTest<T> {
                 return a1.getWeight().compareTo(a2.getWeight());
             }
         };
+
+        Runnable runnable = () -> System.out.println("hello");
 
         Comparator<Apple> byLambdaWeight = (Apple a1, Apple a2) -> a1.getWeight().compareTo(a2.getWeight());
 
@@ -149,6 +210,26 @@ public class LambdaTest<T> {
             apples.add(function.apply(i));
         }
         return apples;
+    }
+
+    public List<String> filterList(List<String> list) {
+        List<String> result = new ArrayList<>();
+        for (String s : list) {
+            if (s.length() == 5) {
+                result.add(s);
+            }
+        }
+        return result;
+    }
+
+    public static List<String> filterList3(List<String> list, Predicate<String> predicate) {
+        List<String> result = new ArrayList<>();
+        for (String s : list) {
+            if (predicate.test(s)) {
+                result.add(s);
+            }
+        }
+        return result;
     }
 
     private int test = 100;

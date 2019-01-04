@@ -1,10 +1,11 @@
 package chapter08;
 
+
+
 /**
  * @author huangyichun
  * @date 2018/12/14
  */
-
 public class Refactory {
 
     public static void main(String[] args) {
@@ -32,5 +33,13 @@ public class Refactory {
             }
         };
         new Thread(r2).start();
+    }
+
+    public static void doSomething(Runnable r) {
+        r.run();
+    }
+
+    public static void doSomething(Task a) {
+        a.execute();
     }
 }
