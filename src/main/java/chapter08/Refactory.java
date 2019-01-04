@@ -4,6 +4,7 @@ package chapter08;
  * @author huangyichun
  * @date 2018/12/14
  */
+
 public class Refactory {
 
     public static void main(String[] args) {
