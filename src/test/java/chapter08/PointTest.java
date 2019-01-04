@@ -1,5 +1,6 @@
 package chapter08;
 
+import chapter02.Filter;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -37,4 +38,15 @@ public class PointTest {
         List<Point> newPoints = Point.moveAllPointsRightBy(points, 10);
         Assert.assertEquals(expectedPoints, newPoints);
     }
+
+    @Test
+    public void testFilter() {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4);
+        List<Integer> even = Filter.filter(numbers, i -> i % 2 == 0);
+        List<Integer> smallerThanThree = Filter.filter(numbers, i -> i < 3);
+
+        Assert.assertEquals(Arrays.asList(2, 4), even);
+        Assert.assertEquals(Arrays.asList(1, 2), smallerThanThree);
+    }
+
 }
