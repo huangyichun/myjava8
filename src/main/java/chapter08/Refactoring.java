@@ -6,7 +6,7 @@ package chapter08;
  * @author huangyichun
  * @date 2018/12/14
  */
-public class Refactory {
+public class Refactoring {
 
     public static void main(String[] args) {
         Runnable runnable = new Runnable() {
