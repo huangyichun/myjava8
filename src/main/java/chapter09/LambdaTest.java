@@ -2,6 +2,7 @@ package chapter09;
 
 import chapter06.Dish;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -27,5 +28,9 @@ public class LambdaTest {
         Map<Dish.CaloricLevel, List<Dish>> d2 = Dish.menu.stream()
                 .collect(Collectors.groupingBy(Dish::getCaloricLevel));
         System.out.println(d2);
+
+        List<Integer> numbers = Arrays.asList(3, 5, 1, 2, 6);
+        numbers.sort(Comparator.naturalOrder());
+        System.out.println(numbers);
     }
 }
