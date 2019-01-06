@@ -7,17 +7,18 @@ package chapter10;
 public class NullPointerTest {
 
     public String getCarInsuranceName(Person person) {
-        if (person != null) {
-            Car car = person.getCar();
-            if (car != null) {
-                Insurance insurance = car.getInsurance();
-                if (insurance != null) {
-                    return insurance.getName();
-                }
-            }
+        if (person == null) {
+            return "Unknown";
         }
-        return "Unknown";
-        //return person.getCar().getInsurance().getName();
+        Car car = person.getCar();
+        if (car == null) {
+            return "Unknown";
+        }
+        Insurance insurance = car.getInsurance();
+        if (insurance == null) {
+            return "Unknown";
+        }
+        return insurance.getName();
     }
 
 
